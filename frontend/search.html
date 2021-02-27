@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>mywara</title>
+    <script src="https://cdn.staticfile.org/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.21.1/axios.min.js"></script>
+    <style>
+    /* 隐藏未编译的变量 */
+
+    [v-cloak] {
+      display: none;
+    }
+
+    *{
+        margin:0;
+        padding:0;
+    }
+
+    body{
+        font:15px/1.3 'Open Sans', sans-serif;
+        color: #5e5b64;
+        text-align:center;
+        background-image:url("https://i-0v0.in/assets/uploads/files/1613054572915-2333.jpg");
+    }
+
+    a, a:visited {
+        outline:none;
+        color:#389dc1;
+    }
+
+    a:hover{
+        text-decoration:none;
+    }
+
+    section, footer, header, aside, nav{
+        display: block;
+    }
+
+
+    /*-------------------------
+        搜索输入框
+    --------------------------*/
+
+    .bar{
+        background-color:#5c9bb7;
+
+        background-image:-webkit-linear-gradient(top, #5c9bb7, #5392ad);
+        background-image:-moz-linear-gradient(top, #5c9bb7, #5392ad);
+        background-image:linear-gradient(top, #5c9bb7, #5392ad);
+
+        box-shadow: 0 1px 1px #ccc;
+        border-radius: 2px;
+        width: 800px;
+        padding: 14px;
+        margin: 45px auto 20px;
+        position:relative;
+    }
+    .bar div{
+        width: 15%;
+        float: left;
+        color:#fff;
+        font-weight: bold;
+        
+        margin-top: 11px;
+    }
+    .bar input{
+        background:#fff no-repeat 13px 13px;
+        background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkU5NEY0RTlFMTA4NzExRTM5RTEzQkFBQzMyRjkyQzVBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkU5NEY0RTlGMTA4NzExRTM5RTEzQkFBQzMyRjkyQzVBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RTk0RjRFOUMxMDg3MTFFMzlFMTNCQUFDMzJGOTJDNUEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RTk0RjRFOUQxMDg3MTFFMzlFMTNCQUFDMzJGOTJDNUEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4DjA/RAAABK0lEQVR42pTSQUdEURjG8dOY0TqmPkGmRcqYD9CmzZAWJRHVRIa0iFYtM6uofYaiEW2SRJtEi9YxIklp07ZkWswu0v/wnByve7vm5ee8M+85zz1jbt9Os+WiGkYdYxjCOx5wgFeXUHmtBSzpcCGa+5BJTCjEP+0nKWAT8xqe4ArPGEEVC1hHEbs2oBwdXkM7mj/JLZrad437sCGHOfUtcziutuYu2v8XUFF/4f6vMK/YgAH1HxkBYV60AR31gxkBYd6xAeF3VzMCwvzOBpypX8V4yuFRzX2d2gD/l5yjH4fYQEnzkj4fae5rJulF2sMXVrAsaTWttRFu4Osb+1jEDT71/ZveyhouTch2fINQL9hKefKjuYFfuznXWzXMTabyrvfyIV3M4vhXgAEAUMs7K0J9UJAAAAAASUVORK5CYII=);
+
+        border: none;
+        width: 82%;
+        line-height: 19px;
+        padding: 11px 0;
+
+        border-radius: 2px;
+        box-shadow: 0 2px 8px #c4c4c4 inset;
+        text-align: left;
+        font-size: 14px;
+        font-family: inherit;
+        color: #738289;
+        font-weight: bold;
+        outline: none;
+        text-indent: 40px;
+        
+    }
+
+    ul{
+        list-style: none;
+        width: 800px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    ul li{
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+        overflow: hidden;
+    }
+
+    ul li img.thumbnail{
+        width:240px;
+        height:135px;
+        float:left;
+        border:none;
+    }
+    ul li img.user_avatar{
+        width:35px;
+        height:35px;
+        float:left;
+        border:none;
+        border-radius: 50%;
+    }
+    ul li a{
+        font-weight: bold;
+    }
+    ul li p{
+        margin-left: 250px;
+        padding-bottom: 10px;
+        color:#6e7a7f;
+    }
+    ul li p.user_name{
+        margin-left: 290px;
+        padding-bottom: 10px;
+        color:#6e7a7f;
+    }
+    </style>
+
+</head>
+<body>
+<form id="main" @submit.prevent="onSubmit" v-cloak>
+    <div class="bar">
+        <!-- searchString 模型与文本域创建绑定 -->
+        <div>按标题搜索</div>
+        <input type="text" v-model="searchString" placeholder="你搜你🐴呢" />
+    </div>
+
+    <ul>
+        <!-- 循环输出数据 -->
+        
+        <li v-for="article in filteredArticles">
+            <a v-bind:href="article.url" target="_blank">
+                <img class="thumbnail" v-bind:src="article.thumbnail" />
+                <p class="title">{{article.title}}</p>
+            </a>
+            
+            <p>👀{{article.view}}   💖{{article.like}}  💬{{article.comment}}</p>
+            <p>🕛{{article.time}}</p>
+            <p>
+                <a v-bind:href="article.user_page"  target="_blank">
+                    <img class="user_avatar" v-bind:src="article.user_avatar" />
+                    <p class="user_name">{{article.user_name}}</p>
+                </a>
+            </p>
+        </li>
+    </ul>
+
+</form>
+<script>
+
+var demo = new Vue({
+    el: '#main',
+    
+  mounted () {
+    axios
+      .post('http://localhost:9200/iwara/_search',{
+  "sort":{"like":"desc"},"size":10,"query":{"match":{"title":{"query":this.searchString,"zero_terms_query":"all"}}}
+})
+      .then(response => {this.articles = []; response.data.hits.hits.forEach(hit => this.articles.push(hit._source))})
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+  },
+   methods:{
+       
+    onSubmit() {
+
+        
+                }
+    },
+    data: {
+        searchString: "",
+
+        // 数据模型，实际环境你可以根据 Ajax 来获取
+        articles: [
+]
+    },
+
+    computed: {
+    //methods: {
+        // 计算数学，匹配搜索
+        filteredArticles: function () {
+            
+    axios
+      .post('http://localhost:9200/iwara/_search',{
+  "sort":{"like":"desc"},"size":10,"query":{"match":{"title":{"query":this.searchString,"zero_terms_query":"all"}}}
+})
+      .then(response => {this.articles = []; response.data.hits.hits.forEach(hit => this.articles.push(hit._source))})
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+            /*
+            var articles_array = this.articles,
+                searchString = this.searchString;
+
+            if(!searchString){
+                return articles_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            articles_array = articles_array.filter(function(item){
+                if(true){
+                //if(item.title.toLowerCase().indexOf(searchString) !== -1){
+                    return item;
+                }
+            })
+
+            // 返回过来后的数组
+            return articles_array;
+            */
+           return this.articles
+        }
+    }
+});
+</script>
+</body>
+</html>

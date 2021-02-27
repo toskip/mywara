@@ -1,0 +1,3 @@
+docker ps --all | grep "elasticsearch:7.11.1" | grep -v grep | awk '{print $1}' | xargs docker rm --force
+docker build . -t docker.elastic.nb/elasticsearch/elasticsearch:7.11.1
+docker run -d -p 9200:9200 -p 9300:9300 -v /root/elasticsearch/data:/usr/share/elasticsearch/data -e "http.cors.enabled=true" -e "http.cors.allow-origin=*"  -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms256m -Xmx256m" docker.elastic.nb/elasticsearch/elasticsearch:7.11.1
