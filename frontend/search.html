@@ -165,7 +165,7 @@ var demo = new Vue({
     
   mounted () {
     axios
-      .post('http://localhost:9200/iwara/_search',{
+      .post('http://'+window.location.host+':9200/iwara/_search',{
   "sort":{"like":"desc"},"size":10,"query":{"match":{"title":{"query":this.searchString,"zero_terms_query":"all"}}}
 })
       .then(response => {this.articles = []; response.data.hits.hits.forEach(hit => this.articles.push(hit._source))})
@@ -194,7 +194,7 @@ var demo = new Vue({
         filteredArticles: function () {
             
     axios
-      .post('http://localhost:9200/iwara/_search',{
+      .post('http://'+window.location.host+':9200/iwara/_search',{
   "sort":{"like":"desc"},"size":10,"query":{"match":{"title":{"query":this.searchString,"zero_terms_query":"all"}}}
 })
       .then(response => {this.articles = []; response.data.hits.hits.forEach(hit => this.articles.push(hit._source))})
