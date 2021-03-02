@@ -8,6 +8,7 @@
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
     <script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
     <script src="https://unpkg.com/vue-infinite-scroll/vue-infinite-scroll.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <style>
     /* 隐藏未编译的变量 */
@@ -123,8 +124,10 @@
         <!-- 循环输出数据 -->
              
         <li v-for="each in data">
-            <a v-bind:href="each.url"><img v-lazy="each.image" /></a>
-            <p>{{each.title}}</p>
+            <a v-bind:href="each._id"</a>
+            <p>{{each._source.view}}</p>
+            <p>{{each._source.like}}</p>
+            <p>{{each._source.comment}}</p>
         </li>
     </ul>
 
@@ -138,336 +141,146 @@ var demo = new Vue({
 
         // 数据模型，实际环境你可以根据 Ajax 来获取
 
-        articles: [
-            {
-                "title": "What You Need To Know About CSS Variables",
-                "url": "https://www.runoob.com/css/css-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Freebie: 4 Great Looking Pricing Tables",
-                "url": "https://www.runoob.com/html/html-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
-                "url": "https://www.runoob.com/css3/css3-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Learn SQL In 20 Minutes",
-                "url": "https://www.runoob.com/sql/sql-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
-            },
-            {
-                "title": "Creating Your First Desktop App With HTML, JS and Electron",
-                "url": "https://www.runoob.com/js/js-tutorial.html",
-                "image": "https://images3.alphacoders.com/241/thumb-1920-241729.jpg"
+        articles:  [
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "jemn7sgm7wuw0oqv9",
+                "_score": null,
+                "_source": {
+                    "view": "2037943",
+                    "like": "13457",
+                    "comment": "441"
+                },
+                "sort": [
+                    13457
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "wqlwatgmvhqg40kg",
+                "_score": null,
+                "_source": {
+                    "view": "1104010",
+                    "like": "8755",
+                    "comment": "233"
+                },
+                "sort": [
+                    8755
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "9eg8rce8qhz9v2bj",
+                "_score": null,
+                "_source": {
+                    "view": "427598",
+                    "like": "8755",
+                    "comment": "201"
+                },
+                "sort": [
+                    8755
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "gy1z5f2avcoy8g4z",
+                "_score": null,
+                "_source": {
+                    "view": "667835",
+                    "like": "7878",
+                    "comment": "447"
+                },
+                "sort": [
+                    7878
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "okloyt6d4f11kg8m",
+                "_score": null,
+                "_source": {
+                    "view": "809624",
+                    "like": "7504",
+                    "comment": "109"
+                },
+                "sort": [
+                    7504
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "reyrjilo9soaka51",
+                "_score": null,
+                "_source": {
+                    "view": "560117",
+                    "like": "7408",
+                    "comment": "100"
+                },
+                "sort": [
+                    7408
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "xgplzi9ggtwgymwj",
+                "_score": null,
+                "_source": {
+                    "view": "369753",
+                    "like": "7398",
+                    "comment": "133"
+                },
+                "sort": [
+                    7398
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "praoah5lrho4q9x7",
+                "_score": null,
+                "_source": {
+                    "view": "288302",
+                    "like": "7012",
+                    "comment": "402"
+                },
+                "sort": [
+                    7012
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "o4ojzc4y76h6k2pk6",
+                "_score": null,
+                "_source": {
+                    "view": "470660",
+                    "like": "6949",
+                    "comment": "118"
+                },
+                "sort": [
+                    6949
+                ]
+            },
+            {
+                "_index": "i*",
+                "_type": "_doc",
+                "_id": "44X5t24DflO2q8Q",
+                "_score": null,
+                "_source": {
+                    "view": "1101332",
+                    "like": "6752",
+                    "comment": "129"
+                },
+                "sort": [
+                    6752
+                ]
             }
         ],
         busy:false,
@@ -500,11 +313,17 @@ var demo = new Vue({
       this.busy = true;
 
       setTimeout(() => {
-        for (var i = 0, j = 10; i < j; i++) {
-          this.data.push(this.articles[i]);
-        }
+      axios.post("http://167.179.93.175:9200/i*/_search",{"_source":["view","like","comment"],"sort":{"like":"desc"},"from":this.data.length,"size":10}).then(response => {
+      console.log(response.data);
+                        for (let i in response.data.hits.hits) {
+                                this.data.push( response.data.hits.hits[i]);
+                        }
+                        //_self.isLoading = false;
+                        //_self.showbtn = true;
+                    }).catch(function (error) {console.log(error);});
+
         this.busy = false;
-      }, 100);
+      }, 1000);
     }
   }
 });
