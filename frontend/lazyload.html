@@ -112,13 +112,30 @@
 </head>
 <body>
 
-<form id="main" v-cloak>
-    <input type="date" id="start" name="trip-start" v-model="dateString" onchange="console.log(demo.$data.dateString)"></input>
-
+<div id="main" v-cloak>
+    <input type="date" id="start" v-model="dateStartString" onchange="console.log(demo.$data.dateStartString)"></input>
+    <input type="date" id="end" v-model="dateEndString" onchange="console.log(demo.$data.dateEndString)"></input>
+    <button v-on:click="dateStartString='2000-01-01';dateEndString=(new Date()).getFullYear()+1+'-01-01'">所有时间</button>
+    <button v-on:click="">今天</button>
+    <button v-on:click="">近一周</button>
+    <button v-on:click="">近一月</button>
+    <button v-on:click="">近一年</button>
+    <!--<button v-on:click="counter += 1">Add 1</button>-->
+    <br></br>
+    <button v-on:click="">view desc</button>
+    <button v-on:click="">like desc</button>
+    <button v-on:click="">comment desc</button>
+    <button v-on:click="">weighted</button>
+    <input type="text" v-model="viewWeightString" placeholder="view weight" />
+    <input type="text" v-model="likeWeightString" placeholder="like weight" />
+    <input type="text" v-model="commentWeightString" placeholder="comment weight" />
+    <input type="range"/>
+    <input type="search"/>
+    <input type="radio"/>
     <div class="bar">
         <!-- searchString 模型与文本域创建绑定 -->
 
-        <input type="text" v-model="searchString" placeholder="输入搜索内容" />
+        <input type="search" v-model="searchString" placeholder="输入搜索内容" />
     </div>
 
     <ul v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
@@ -132,7 +149,7 @@
         </li>
     </ul>
 
-</form>
+</div>
 <script>
 Vue.use(VueLazyload)
 var demo = new Vue({
@@ -140,7 +157,11 @@ var demo = new Vue({
     
     data: {
         searchString: "",
-        dateString:(new Date()).getFullYear()+1+'-01-01',
+        dateStartString:'2000-01-01',
+        dateEndString:(new Date()).getFullYear()+1+'-01-01',
+        viewWeightString:'0',
+        likeWeightString:'100',
+        commentWeightString:'0',
         // 数据模型，实际环境你可以根据 Ajax 来获取
 
         articles:  [
