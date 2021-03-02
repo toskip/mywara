@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
     <script src="https://unpkg.com/vue-infinite-scroll/vue-infinite-scroll.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vuejs-datepicker"></script>
     
     <style>
     /* 隐藏未编译的变量 */
@@ -124,7 +125,7 @@
         <!-- 循环输出数据 -->
              
         <li v-for="each in data">
-            <a v-bind:href="each._id"</a>
+            <p>{{each._id}}</p>
             <p>{{each._source.view}}</p>
             <p>{{each._source.like}}</p>
             <p>{{each._source.comment}}</p>
@@ -310,10 +311,11 @@ var demo = new Vue({
     },
   methods: {
     loadMore: function() {
-      this.busy = true;
+      //this.busy = true;
 
       setTimeout(() => {
-      axios.post("http://167.179.93.175:9200/i*/_search",{"_source":["view","like","comment"],"sort":{"like":"desc"},"from":this.data.length,"size":10}).then(response => {
+      axios.post("http://localhost:9200/i*/_search",{"_source":["view","like","comment"],"sort":{"like":"desc"},"from":this.data.length,"size":10}).then(response => {
+      console.log(this.data.length)
       console.log(response.data);
                         for (let i in response.data.hits.hits) {
                                 this.data.push( response.data.hits.hits[i]);
@@ -322,8 +324,8 @@ var demo = new Vue({
                         //_self.showbtn = true;
                     }).catch(function (error) {console.log(error);});
 
-        this.busy = false;
-      }, 1000);
+        //this.busy = false;
+      }, 10);
     }
   }
 });
