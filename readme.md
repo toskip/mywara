@@ -36,3 +36,7 @@
 中日漢字對照表
 
 > https://www.jpmarumaru.com/tw/teachKanjiComparison.asp
+
+
+x-www-form-urlencoded
+Page=n
