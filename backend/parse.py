@@ -11,14 +11,20 @@ _Logger = logging.getLogger(_Program)
 logging.basicConfig(format='HTMLParser %(levelname)s %(asctime)s %(message)s')
 logging.root.setLevel(level=logging.INFO)
 
-ES_HOSTS = ['localhost:9200']
+ES_HOSTS = ['167.179.93.175:9201']
+latest = False
+if len(sys.argv)>=2 and sys.argv[1]=='latest':
+    latest = True
 
 files = os.listdir('../content')
 f = open('content.ndjson','w',encoding='utf-8')
 for file in files:
     if file.find('.')==-1:
-        _Logger.info('https:/ecchi.iwara.tv/videos/'+file)
         try:
+            if (time.time()-os.stat('../content/'+file).st_mtime)/60>60:
+                continue
+
+            _Logger.info('https:/ecchi.iwara.tv/videos/'+file)
             html = open('../content/'+file,'r',encoding='utf-8').read()
             root = pq.PyQuery(html)
             item = {}
