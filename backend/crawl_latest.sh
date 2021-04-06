@@ -20,10 +20,10 @@ done
 #提取链接
 mkdir ../content
 cd ../content
-grep -oE '<h3 class="title"><a href="(.*)"' *  | grep -E "page=([0-9]{1}|1[0-9]{1}):" | awk -F\" '{print $4}' > seed_latest.txt
+grep -oE '<h3 class="title"><a href="(.*)"' ../list/*  | grep -E "page=([0-9]{1}|1[0-9]{1}):" | awk -F\" '{print $4}' > seed_latest.txt
 
 #详情页
-for i in {0..7145}
+for i in {0..72}
 do
   date +'%Y-%m-%d %H:%M:%S'
   echo start batch $i
@@ -38,3 +38,6 @@ do
   sleep 3
   echo finish batch $i
 done
+
+cd ../backend
+python3 parse.py latest
