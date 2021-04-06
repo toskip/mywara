@@ -1,4 +1,5 @@
 #列表页
+rm -rf ../list
 mkdir ../list
 cd ../list
 #batch数
@@ -17,13 +18,16 @@ do
   echo finish batch $i
 done
 
+
 #提取链接
+rm -rf ../content
 mkdir ../content
 cd ../content
-grep -oE '<h3 class="title"><a href="(.*)"'  * | awk -F\" '{print $4}' > seed_all.txt
+grep -oE '<h3 class="title"><a href="(.*)"'  ../list/* | awk -F\" '{print $4}' > seed_all.txt
+lines=$(wc -l seed_all.txt | awk '{print $1}')
 
 #详情页
-for i in {0..7145}
+for i in {0..7200}
 do
   date +'%Y-%m-%d %H:%M:%S'
   echo start batch $i
@@ -38,3 +42,6 @@ do
   sleep 3
   echo finish batch $i
 done
+
+cd ../backend
+python3 parse.py
