@@ -11,7 +11,7 @@ _Logger = logging.getLogger(_Program)
 logging.basicConfig(format='HTMLParser %(levelname)s %(asctime)s %(message)s')
 logging.root.setLevel(level=logging.INFO)
 
-ES_HOSTS = ['167.179.93.175:9201']
+ES_HOSTS = ['localhost:9201']
 latest = False
 if len(sys.argv)>=2 and sys.argv[1]=='latest':
     latest = True
