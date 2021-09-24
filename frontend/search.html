@@ -237,7 +237,7 @@ var demo = new Vue({
        
     loadMore: function(state) {
 
-      axios.post("http://localhost:9200/iwara/_search",
+      axios.post("http://localhost:9201/iwara/_search",
       {
         "_source": {
             "exclude": [
